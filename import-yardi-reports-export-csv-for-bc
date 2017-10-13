@@ -1,0 +1,1838 @@
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  // Or DocumentApp or FormApp.
+  ui.createMenu('Export CSV Functions')
+      .addItem('Export Resent MoveIns to CSV', 'exportResentMoveIns2CSVbtn')
+      .addItem('Export Resent MoveOuts to CSV', 'exportResentMoveOuts2CSVbtn')
+      .addItem('Export Resent Notices to CSV', 'exportResentNotices2CSVbtn')
+//      .addItem('Set Listing Status', 'setListingStatusBtn')
+//      .addSeparator()
+//      .addSubMenu(ui.createMenu('Sub-menu')
+//          .addItem('Second item', 'menuItem2'))
+      .addToUi();
+}
+
+function convertResidentAddressBookCurrentExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('ResidentAddressBookwithRoommatesandEmail-Current.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='ResidentAddressBookwithRoommatesandEmail-Current' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Current');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Current.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+function convertResidentAddressBookPastExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('ResidentAddressBookwithRoommatesandEmail-Past.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='ResidentAddressBookwithRoommatesandEmail-Past' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Past');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Past.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+function convertResidentAddressBookNoticeExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('ResidentAddressBookwithRoommatesandEmail-Notice.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='ResidentAddressBookwithRoommatesandEmail-Notice' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Notice');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Notice.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+function convertDataGridExportMoveInsExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('DataGridExport-MoveIns.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='DataGridExport-MoveIns' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('DataGridExport-MoveIns');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('DataGridExport-MoveIns.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+function convertDataGridExportMoveOutsExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('DataGridExport-MoveOuts.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='DataGridExport-MoveOuts' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('DataGridExport-MoveOuts');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('DataGridExport-MoveOuts.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+function convertDataGridExportNoticesExcel2Sheets() {
+  var folderIncoming = DriveApp.getFoldersByName('Apartment Homes Marin Contacts');
+  var xlsFile = folderIncoming.next().getFilesByName('DataGridExport-Notices.xlsx');
+  var xlsBlob = xlsFile.next().getBlob(); // Blob source of Excel file for conversion
+     var xlsFilename='DataGridExport-Notices' // File name to give to converted file; defaults to same as source file
+  var destFolders = []; // array of IDs of Drive folders to put converted file in; empty array = root folder
+  var ss = convertExcel2Sheets(xlsBlob, xlsFilename, destFolders);
+  Logger.log(ss.getId());
+ DriveApp.getFileById(ss.getId());
+
+ // add the files to the correct folder
+      var filesToMove = DriveApp.getFilesByName('DataGridExport-Notices');
+      
+        var fileToMove = filesToMove.next();
+        var dest_folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM')
+        dest_folder.addFile(fileToMove);
+        //remove the copy of the ticket from the drive
+        fileToMove.getParents().next().removeFile(fileToMove);
+        var FileToTrash = DriveApp.getFilesByName('DataGridExport-Notices.xlsx');
+        FileToTrash.next().setTrashed(true);
+      }
+
+
+/**
+ * Convert Excel file to Sheets
+ * @param {Blob} excelFile The Excel file blob data; Required
+ * @param {String} filename File name on uploading drive; Required
+ * @param {Array} arrParents Array of folder ids to put converted file in; Optional, will default to Drive root folder
+ * @return {Spreadsheet} Converted Google Spreadsheet instance
+ **/
+function convertExcel2Sheets(excelFile, filename, arrParents) {
+  
+  var parents  = arrParents || []; // check if optional arrParents argument was provided, default to empty array if not
+  if ( !parents.isArray ) parents = []; // make sure parents is an array, reset to empty array if not
+  
+  // Parameters for Drive API Simple Upload request (see https://developers.google.com/drive/web/manage-uploads#simple)
+  var uploadParams = {
+    method:'post',
+    contentType: 'application/vnd.ms-excel', // works for both .xls and .xlsx files
+    contentLength: excelFile.getBytes().length,
+    headers: {'Authorization': 'Bearer ' + ScriptApp.getOAuthToken()},
+    payload: excelFile.getBytes()
+  };
+  
+  // Upload file to Drive root folder and convert to Sheets
+  var uploadResponse = UrlFetchApp.fetch('https://www.googleapis.com/upload/drive/v2/files/?uploadType=media&convert=true', uploadParams);
+    
+  // Parse upload&convert response data (need this to be able to get id of converted sheet)
+  var fileDataResponse = JSON.parse(uploadResponse.getContentText());
+
+  // Create payload (body) data for updating converted file's name and parent folder(s)
+  var payloadData = {
+    title: filename, 
+    parents: []
+  };
+  if ( parents.length ) { // Add provided parent folder(s) id(s) to payloadData, if any
+    for ( var i=0; i<parents.length; i++ ) {
+      try {
+        var folder = DriveApp.getFolderById(parents[i]); // check that this folder id exists in drive and user can write to it
+        payloadData.parents.push({id: parents[i]});
+      }
+      catch(e){} // fail silently if no such folder id exists in Drive
+    }
+  }
+  // Parameters for Drive API File Update request (see https://developers.google.com/drive/v2/reference/files/update)
+  var updateParams = {
+    method:'put',
+    headers: {'Authorization': 'Bearer ' + ScriptApp.getOAuthToken()},
+    contentType: 'application/json',
+    payload: JSON.stringify(payloadData)
+  };
+  
+  // Update metadata (filename and parent folder(s)) of converted sheet
+  UrlFetchApp.fetch('https://www.googleapis.com/drive/v2/files/'+fileDataResponse.id, updateParams);
+  
+  return SpreadsheetApp.openById(fileDataResponse.id);
+}
+
+
+
+function exportResentMoveIns2CSVbtn() {
+  var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts");
+
+  Logger.log(folder.hasNext());
+
+  //Folder does not exist
+  if(!folder.hasNext()){
+
+  Logger.log("No Folder Found");
+    throw ("No Folder Found! Did Someone Delete It???")
+
+  }
+  //Folder does exist
+  else{
+    Logger.log("Folder Found")
+    var file1   = folder.next().getFilesByName("ResidentAddressBookwithRoommatesandEmail-Current.xlsx");
+//    var file2 = folder.next().getFilesByName("DataGridExport-MoveIns.xlsx")
+    if(!file1.hasNext()){
+       Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg);
+    }
+    else{
+      exportResentMoveInsCheckFile2(); 
+  }
+}
+}
+
+function exportResentMoveInsCheckFile2() {
+var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts"); 
+  var file2 = folder.next().getFilesByName("DataGridExport-MoveIns.xlsx");
+      if(!file2.hasNext()){
+             Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg); 
+      }else{
+        
+       Logger.log("Needed Files Found");
+
+btnPass1();       
+    }
+}
+
+function btnPass1() {
+convertResidentAddressBookCurrentExcel2Sheets();
+//Utilities.sleep(3000);        
+mergeResidentAddressBookCurrentSheets();
+//Utilities.sleep(3000);  
+removeDuplicateRowsFromResidentAddressBook();
+//Utilities.sleep(3000);          
+mergeDuplicateResidentsFromResidentAddressBook();
+//        Utilities.sleep(3000);  
+convertDataGridExportMoveInsExcel2Sheets();
+//        Utilities.sleep(3000);  
+mergeDataGridExportMoveIns2Sheet();
+//        Utilities.sleep(5000);  
+setMoveInSheetNumberFormatting();    
+//        Utilities.sleep(3000);  
+makeCopyOfMasterSheet();
+//        Utilities.sleep(3000);  
+makeCopyOfResidentAddressBookSheet();
+//       Utilities.sleep(5000);   
+deleteExtraRows();
+//        Utilities.sleep(3000);
+  ScriptApp.newTrigger("btnPass2").timeBased().after(60 * 1000).create(); 
+}
+
+function btnPass2() {
+  
+clearMasterSheet();
+//        Utilities.sleep(3000);
+setMoveInSheetNumberFormatting();
+//        Utilities.sleep(3000);  
+pushMoveInsLast30Days();
+//        Utilities.sleep(3000);
+mapPushedMoveInRows2Master();
+//        Utilities.sleep(3000);
+ScriptApp.newTrigger("btnPass3").timeBased().after(60 * 1000).create();   
+}
+
+function btnPass3() {
+ setMasterDateNumberFormatting();
+//        Utilities.sleep(3000);  
+saveMasterAsRecentMoveInsCSVsendEmail();
+deleteSS();  
+ScriptApp.newTrigger("deleteAllTriggers").timeBased().after(60 * 1000).create();    
+}
+
+function exportResentMoveOuts2CSVbtn() {
+  var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts");
+
+  Logger.log(folder.hasNext());
+
+  //Folder does not exist
+  if(!folder.hasNext()){
+
+  Logger.log("No Folder Found");
+    throw ("No Folder Found! Did Someone Delete It???")
+
+  }
+  //Folder does exist
+  else{
+    Logger.log("Folder Found")
+    var file1   = folder.next().getFilesByName("ResidentAddressBookwithRoommatesandEmail-Past.xlsx");
+//    var file2 = folder.next().getFilesByName("DataGridExport-MoveIns.xlsx")
+    if(!file1.hasNext()){
+       Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg);
+    }
+    else{
+      exportResentMoveOutsCheckFile2(); 
+  }
+}
+}
+
+function exportResentMoveOutsCheckFile2() {
+var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts"); 
+  var file2 = folder.next().getFilesByName("DataGridExport-MoveOuts.xlsx");
+      if(!file2.hasNext()){
+             Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg); 
+      }else{
+        
+       Logger.log("Needed Files Found");
+
+btn2Pass1();       
+    }
+}
+
+function btn2Pass1() {
+convertResidentAddressBookPastExcel2Sheets();
+//Utilities.sleep(3000);        
+mergeResidentAddressBookPastSheets();
+//Utilities.sleep(3000);  
+removeDuplicateRowsFromPastResidentAddressBook();
+//Utilities.sleep(3000);          
+mergeDuplicateResidentsFromPastResidentAddressBook();
+//        Utilities.sleep(3000);  
+convertDataGridExportMoveOutsExcel2Sheets();
+//        Utilities.sleep(3000);  
+mergeDataGridExportMoveOuts2Sheet();
+//        Utilities.sleep(5000);  
+setMoveOutsSheetNumberFormatting();    
+//        Utilities.sleep(3000);  
+makeCopyOfMasterSheet();
+//        Utilities.sleep(3000);  
+makeCopyOfPastResidentAddressBookSheet();
+//       Utilities.sleep(5000);   
+deleteExtraRows();
+//        Utilities.sleep(3000);
+  ScriptApp.newTrigger("btn2Pass2").timeBased().after(60 * 1000).create(); 
+}
+
+function btn2Pass2() {
+  
+clearMasterSheet();
+//        Utilities.sleep(3000);
+setMoveOutsSheetNumberFormatting();
+//        Utilities.sleep(3000);  
+pushMoveOutsLast30Days();
+//        Utilities.sleep(3000);
+mapPushedMoveOutRows2Master();
+//        Utilities.sleep(3000);
+ScriptApp.newTrigger("btn2Pass3").timeBased().after(60 * 1000).create();   
+}
+
+function btn2Pass3() {
+ setMasterDateNumberFormatting();
+//        Utilities.sleep(3000);  
+saveMasterAsRecentMoveOutsCSVsendEmail();
+deleteSS();  
+ScriptApp.newTrigger("deleteAllTriggers").timeBased().after(60 * 1000).create();    
+}
+
+function exportResentNotices2CSVbtn() {
+  var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts");
+
+  Logger.log(folder.hasNext());
+
+  //Folder does not exist
+  if(!folder.hasNext()){
+
+  Logger.log("No Folder Found");
+    throw ("No Folder Found! Did Someone Delete It???")
+
+  }
+  //Folder does exist
+  else{
+    Logger.log("Folder Found")
+    var file1   = folder.next().getFilesByName("ResidentAddressBookwithRoommatesandEmail-Notice.xlsx");
+//    var file2 = folder.next().getFilesByName("DataGridExport-MoveIns.xlsx")
+    if(!file1.hasNext()){
+       Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg);
+    }
+    else{
+      exportResentNoticesCheckFile2(); 
+  }
+}
+}
+
+function exportResentNoticesCheckFile2() {
+var folder = DriveApp.getFoldersByName("Apartment Homes Marin Contacts"); 
+  var file2 = folder.next().getFilesByName("DataGridExport-Notices.xlsx");
+      if(!file2.hasNext()){
+             Logger.log("One or More Needed Files Not Found");
+      var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+      var numRows = contacts.getLastRow();
+      var email = contacts.getRange(2, 8, numRows, 1).getValues();
+      var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("I2").getValue();
+      var bodyPar1 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J2").getValue();
+      var bodyPar2 = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("J3");
+      var Msg = ("One or More Needed Files Not Found. Please Download the Appropriate Reports into the Correct Google Drive Folder First. Instructions will be Emailed to You.")
+      MailApp.sendEmail(email,subject ,bodyPar1 + "\n\n" + bodyPar1);
+      throw (Msg); 
+      }else{
+        
+       Logger.log("Needed Files Found");
+
+btn3Pass1();       
+    }
+}
+
+function btn3Pass1() {
+convertResidentAddressBookNoticeExcel2Sheets();
+//Utilities.sleep(3000);        
+mergeResidentAddressBookNoticeSheets();
+//Utilities.sleep(3000);  
+removeDuplicateRowsFromNoticesResidentAddressBook();
+//Utilities.sleep(3000);          
+mergeDuplicateResidentsFromNoticesResidentAddressBook();
+//        Utilities.sleep(3000);  
+convertDataGridExportNoticesExcel2Sheets();
+//        Utilities.sleep(3000);  
+mergeDataGridExportNotices2Sheet();
+//        Utilities.sleep(5000);  
+setNoticesSheetNumberFormatting();    
+//        Utilities.sleep(3000);  
+makeCopyOfMasterSheet();
+//        Utilities.sleep(3000);  
+makeCopyOfNoticesResidentAddressBookSheet();
+//       Utilities.sleep(5000);   
+deleteExtraRows();
+//        Utilities.sleep(3000);
+  ScriptApp.newTrigger("btn3Pass2").timeBased().after(60 * 1000).create(); 
+}
+
+function btn3Pass2() {
+  
+clearMasterSheet();
+//        Utilities.sleep(3000);
+setNoticesSheetNumberFormatting();
+//        Utilities.sleep(3000);  
+pushNoticesNext30Days();
+//        Utilities.sleep(3000);
+mapPushedNoticesRows2Master();
+//        Utilities.sleep(3000);
+ScriptApp.newTrigger("btn3Pass3").timeBased().after(60 * 1000).create();   
+}
+
+function btn3Pass3() {
+ setMasterDateNumberFormatting();
+//        Utilities.sleep(3000);  
+saveMasterAsRecentNoticesCSVsendEmail();
+deleteSS();  
+ScriptApp.newTrigger("deleteAllTriggers").timeBased().after(60 * 1000).create();    
+}
+
+function deleteAllTriggers() {
+ // Deletes all triggers in the current project.
+ var triggers = ScriptApp.getProjectTriggers();
+ for (var i = 0; i < triggers.length; i++) {
+   ScriptApp.deleteTrigger(triggers[i]);
+ } 
+}
+
+
+//function deleteTrigger1(){
+//  var allTriggers = ScriptApp.getProjectTriggers();
+//  for ( var i in allTriggers ) {
+//    if (allTriggers[i].getHandlerFunction() == "btn2Test") {
+//      var ID = allTriggers[i].getUniqueId();
+//      Logger.log(allTriggers[i].getHandlerFunction())
+//      if(allTriggers[i].getUniqueId() == ID){
+//        ScriptApp.deleteTrigger(allTriggers[i]);
+//      break;   
+//  }
+//  }
+//  }
+//
+//}
+
+function makeCopyOfMasterSheet() {
+  //copy columns A - L in Master sheet and copy to columns A - L in Copy of Master
+var sourceSheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");
+var numRowsSource1 = sourceSheet1.getLastRow();
+var destSheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of Master");
+var numRowsDest1 = destSheet1.getLastRow(); 
+var sourceRange1 = sourceSheet1.getRange(2, 1, numRowsSource1, 40);
+var destRange1 = destSheet1.getRange(2, 1, numRowsDest1, 40);
+  destRange1.clearContent();
+  destRange1 = destSheet1.getRange(2, 1, numRowsSource1, 40)
+  sourceRange1.copyTo(destRange1);
+}
+
+function makeCopyOfResidentAddressBookSheet() {
+// Starting at row 7 copy columns A through M in “ResidentAddressBook”, starting at row 7, 
+  //clear columns A through M in “Copy of ResidentAddressBook”, paste copied rows/columns from 
+  //ResidentAddressBook into “Copy of ResidentAddressBook” starting at row 7 column 1 
+var sourceSheet2 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ResidentAddressBook");
+  sourceSheet2.insertRowsBefore(3,2);
+var numRowsSource2 = sourceSheet2.getLastRow();
+var destSheet2 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of ResidentAddressBook");
+var numRowsDest2 = destSheet2.getLastRow(); 
+var sourceRange2 = sourceSheet2.getRange(2, 1, numRowsSource2, 13);
+var destRange2 = destSheet2.getRange(2, 1, numRowsDest2, 13);
+  destRange2.clearContent();
+  destRange2 = destSheet2.getRange(2, 1, numRowsSource2, 13)
+  sourceRange2.copyTo(destRange2);
+}
+
+function makeCopyOfPastResidentAddressBookSheet() {
+// Starting at row 7 copy columns A through M in “PastResidentAddressBook”, starting at row 7, 
+  //clear columns A through M in “Copy of PastResidentAddressBook”, paste copied rows/columns from 
+  //PastResidentAddressBook into “Copy of PastResidentAddressBook” starting at row 7 column 1 
+var sourceSheet3 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PastResidentAddressBook");
+//  sourceSheet3.insertRowBefore(3);
+var numRowsSource3 = sourceSheet3.getLastRow();
+var destSheet3 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of PastResidentAddressBook");
+var numRowsDest3 = destSheet3.getLastRow(); 
+var sourceRange3 = sourceSheet3.getRange(2, 1, numRowsSource3, 13);
+var destRange3 = destSheet3.getRange(2, 1, numRowsDest3, 13);
+  destRange3.clearContent();
+  destRange3 = destSheet3.getRange(2, 1, numRowsSource3, 13)
+  sourceRange3.copyTo(destRange3); 
+}
+
+function makeCopyOfNoticesResidentAddressBookSheet() {
+// Starting at row 7 copy columns A through M in “NoticesResidentAddressBook”, starting at row 7, 
+  //clear columns A through M in “Copy of NoticesResidentAddressBook”, paste copied rows/columns from 
+  //PastResidentAddressBook into “Copy of NoticesResidentAddressBook” starting at row 7 column 1
+var sourceSheet4 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("NoticesResidentAddressBook");
+//  sourceSheet4.insertRowBefore(3);
+var numRowsSource4 = sourceSheet4.getLastRow();
+var destSheet4 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of NoticesResidentAddressBook");
+var numRowsDest4 = destSheet4.getLastRow(); 
+var sourceRange4 = sourceSheet4.getRange(2, 1, numRowsSource4, 13);
+var destRange4 = destSheet4.getRange(2, 1, numRowsDest4, 13);
+  destRange4.clearContent();
+  destRange4 = destSheet4.getRange(2, 1, numRowsSource4, 13)
+  sourceRange4.copyTo(destRange4);  
+}
+
+function deleteSS() {
+ var ss = SpreadsheetApp.getActiveSpreadsheet(); 
+  ss.getSheetByName('Copy of Report1').activate();
+  ss.deleteActiveSheet();
+  ss.getSheetByName('Copy of Report1 1').activate();
+  ss.deleteActiveSheet();
+}
+
+function mergeResidentAddressBookCurrentSheets() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Current with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Current');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('ResidentAddressBook');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of ResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('O7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1');
+   var range = report1.getRange(7,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(7, 1, report1NumRows-1, 13);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('ResidentAddressBook').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('ResidentAddressBook');
+  var cell = sheet.getRange("A7:M7");
+  cell.setBorder(false,false,false,false,false,false);
+  sheet.insertRowsBefore(7, report1NumRows);
+  var rangeToPasteTo = sheet.getRange(7,1)
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Current');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,MoveIns!C:J,{4}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of MoveIns'!C:K,{9}*row(C7:C)^0,0))))");
+//  deleteSS();
+  }
+
+function mergeResidentAddressBookPastSheets() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Past with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Past');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('PastResidentAddressBook');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of PastResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('O7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1');
+   var range = report1.getRange(7,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(7, 1, report1NumRows-1, 13);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('PastResidentAddressBook').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('PastResidentAddressBook');
+  var cell = sheet.getRange("A7:M7");
+  cell.setBorder(false,false,false,false,false,false);
+  sheet.insertRowsBefore(7, report1NumRows);
+  var rangeToPasteTo = sheet.getRange(7,1)
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Past');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,MoveOuts!C:J,{5}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of MoveOuts'!C:K,{9}*row(C7:C)^0,0))))");
+//deleteSS();
+  }
+
+function mergeResidentAddressBookNoticeSheets() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Past with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Notice');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('NoticesResidentAddressBook');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of NoticesResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('O7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1');
+   var range = report1.getRange(7,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(7, 1, report1NumRows-1, 13);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('NoticesResidentAddressBook');
+  var cell = sheet.getRange("A7:M7");
+  cell.setBorder(false,false,false,false,false,false);
+  sheet.insertRowsBefore(7, report1NumRows);
+  var rangeToPasteTo = sheet.getRange(7,1)
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('ResidentAddressBookwithRoommatesandEmail-Notice');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,MoveOuts!C:J,{5}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of MoveOuts'!C:K,{9}*row(C7:C)^0,0))))");
+//deleteSS();
+  }
+
+function mergeDataGridExportMoveIns2Sheet() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Past with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('DataGridExport-MoveIns');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('MoveIns');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of ResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('O7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1 1');
+   var range = report1.getRange(2,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(2, 1, report1NumRows-1, 10);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('MoveIns').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('MoveIns');
+//  var cell = sheet.getRange("A2:J2");
+//  cell.setBorder(false,false,false,false,false,false);
+//  sheet.insertRowsBefore(2, report1NumRows-1);
+  var sheetNumRows = ss.getSheetByName('MoveIns').getMaxRows();
+  var sheetNumCols = ss.getSheetByName('MoveIns').getMaxColumns(); 
+  var rangeToClear = sheet.getRange(2,1,sheetNumRows,sheetNumCols);
+  var rangeToPasteTo = sheet.getRange(2,1);
+    rangeToClear.clear();
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('DataGridExport-MoveIns');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,MoveIns!C:J,{5}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of MoveIns'!C:K,{9}*row(C7:C)^0,0))))");
+//deleteSS();
+  }
+
+function mergeDataGridExportMoveOuts2Sheet() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Past with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('DataGridExport-MoveOuts');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('MoveOuts');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of PastResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('O7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1 1');
+   var range = report1.getRange(2,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(2, 1, report1NumRows-1, 10);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('MoveOuts').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('MoveOuts');
+//  var cell = sheet.getRange("A2:J2");
+//  cell.setBorder(false,false,false,false,false,false);
+//  sheet.insertRowsBefore(2, report1NumRows-1);
+  var sheetNumRows = ss.getSheetByName('MoveOuts').getMaxRows();
+  var sheetNumCols = ss.getSheetByName('MoveOuts').getMaxColumns(); 
+  var rangeToClear = sheet.getRange(2,1,sheetNumRows,sheetNumCols);
+  var rangeToPasteTo = sheet.getRange(2,1);
+    rangeToClear.clear();
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('DataGridExport-MoveOuts');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,MoveOuts!C:J,{5}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of MoveOuts'!C:K,{9}*row(C7:C)^0,0))))");
+//deleteSS();
+  }
+
+function mergeDataGridExportNotices2Sheet() {
+ //Merge ResidentAddressBookwithRoomatesandEmail-Past with ResidentAddressBook 
+ var sourceFile = DriveApp.getFilesByName('DataGridExport-Notices');
+ var sourceFile2 = DriveApp.getFileById(sourceFile.next().getId());
+ var openedSourceFile = SpreadsheetApp.openById(sourceFile2.getId());
+ var sourceSS = openedSourceFile.getSheetByName('Report1');
+ var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+ var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+ var destinationSS = openedDestinationSS.getSheetByName('Notices');
+ var vacancyRefSS = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Copy of NoticesResidentAddressBook');
+// var arrayFormulaCell = vacancyRefSS.getRange('N7'); 
+// var arrayFormulaCell2 =  vacancyRefSS.getRange('P7');
+  sourceSS.copyTo(openedDestinationSS);
+ var report1 = openedDestinationSS.getSheetByName('Copy of Report1 1');
+   var range = report1.getRange(2,1);
+  if(range.getValue() == '') {while(range == '')break;}else{ 
+//  report1.hideSheet();
+ var report1NumRows = report1.getLastRow();
+ var reportRangeToCopy = report1.getRange(2, 1, report1NumRows-1, 10);
+    Logger.clear(); 
+Logger.log(reportRangeToCopy);  
+ var pfiReportLastRow = openedDestinationSS.getSheetByName('Notices').getLastRow()+ 1;
+    Logger.clear(); 
+Logger.log(pfiReportLastRow);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('Notices');
+//  var cell = sheet.getRange("A2:J2");
+//  cell.setBorder(false,false,false,false,false,false);
+//  sheet.insertRowsBefore(2, report1NumRows-1);
+  var sheetNumRows = ss.getSheetByName('Notices').getMaxRows();
+  var sheetNumCols = ss.getSheetByName('Notices').getMaxColumns(); 
+  var rangeToClear = sheet.getRange(2,1,sheetNumRows,sheetNumCols);
+  var rangeToPasteTo = sheet.getRange(2,1);
+    rangeToClear.clear();
+  reportRangeToCopy.copyTo(rangeToPasteTo);
+  }
+var FileToTrash = DriveApp.getFilesByName('DataGridExport-Notices');
+        FileToTrash.next().setTrashed(true);
+//  arrayFormulaCell.setValue('=ArrayFormula(if(C7:C="","",iferror(vlookup(C7:C,Notices!C:J,{2,5}*row(C7:C)^0,0))))');
+//    arrayFormulaCell2.setValue("=ArrayFormula"+'(if(C7:C="","",iferror(vlookup(C7:C,'+"'Copy of Notices'!C:K,{9}*row(C7:C)^0,0))))");
+//deleteSS();
+  }
+
+function removeDuplicateRowsFromResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('ResidentAddressBook').getDataRange().getValues();
+  var breakRange = openedDestinationSS.getSheetByName('ResidentAddressBook').getDataRange();
+for(;;) {
+  try {
+    breakRange.breakApart();
+    break;
+  } catch(e) {
+    breakRange = openedDestinationSS.getSheetByName('ResidentAddressBook').getRange(
+      breakRange.getRowIndex(),
+      breakRange.getColumnIndex(),
+      Math.min(
+        breakRange.getHeight()+5,
+        mySheet.getMaxRows()-breakRange.getRowIndex()+1
+      ),
+      Math.min(
+        breakRange.getWidth()+5,
+        mySheet.getMaxColumns()-breakRange.getColumnIndex()+1
+      )
+    );
+  }
+}
+  var newData = new Array();
+  var rented = new Array();
+  var newNivUnit = new Array();
+  
+  var warning_count = 0;
+  var warning_count1 = 0;
+  var msg = "";  
+  var msg1 = "";
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+  
+  if(row[0] == newData[j][0] && row[1] == newData[j][1] && row[2] == newData[j][2] && row[3] == newData[j][3] && row[4] == newData[j][4] && row[5] == newData[j][5] && row[6] == newData[j][6] && row[7] == newData[j][7] && row[8] == newData[j][8] && row[9] == newData[j][9] && row[10] == newData[j][10] && row[11] == newData[j][11] && row[12] == newData[j][12]){
+   duplicate = true; 
+  }
+
+}
+
+  
+    
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+
+Logger.clear(); 
+Logger.log(newData[i]);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A4").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B4");   
+openedDestinationSS.getSheetByName('ResidentAddressBook').clearContents();
+openedDestinationSS.getSheetByName('ResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setBackground(null);
+var cell = openedDestinationSS.getSheetByName('ResidentAddressBook').getRange(1, 1, newData.length, newData[0].length);
+  cell.setBorder(false,false,false,false,false,false);  
+openedDestinationSS.getSheetByName('ResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+  openedDestinationSS.getSheetByName('ResidentAddressBook').insertRowBefore(3);
+} 
+
+function removeDuplicateRowsFromPastResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('PastResidentAddressBook').getDataRange().getValues();
+    var breakRange = openedDestinationSS.getSheetByName('PastResidentAddressBook').getDataRange();
+for(;;) {
+  try {
+    breakRange.breakApart();
+    break;
+  } catch(e) {
+    breakRange = openedDestinationSS.getSheetByName('PastResidentAddressBook').getRange(
+      breakRange.getRowIndex(),
+      breakRange.getColumnIndex(),
+      Math.min(
+        breakRange.getHeight()+5,
+        mySheet.getMaxRows()-breakRange.getRowIndex()+1
+      ),
+      Math.min(
+        breakRange.getWidth()+5,
+        mySheet.getMaxColumns()-breakRange.getColumnIndex()+1
+      )
+    );
+  }
+}
+  var newData = new Array();
+  var rented = new Array();
+  var newNivUnit = new Array();
+  
+  var warning_count = 0;
+  var warning_count1 = 0;
+  var msg = "";  
+  var msg1 = "";
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+  
+  if(row[0] != '' && row[0] == newData[j][0] && row[1] == newData[j][1] && row[2] == newData[j][2] && row[3] == newData[j][3] && row[4] == newData[j][4] && row[5] == newData[j][5] && row[6] == newData[j][6] && row[7] == newData[j][7] && row[8] == newData[j][8] && row[9] == newData[j][9] && row[10] == newData[j][10] && row[11] == newData[j][11] && row[12] == newData[j][12]){
+   duplicate = true; 
+  }
+
+}
+
+  
+    
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+
+Logger.clear(); 
+Logger.log(newData[i]);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A4").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B4");   
+openedDestinationSS.getSheetByName('PastResidentAddressBook').clearContents();
+    openedDestinationSS.getSheetByName('PastResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setBackground(null);
+var cell = openedDestinationSS.getSheetByName('PastResidentAddressBook').getRange(1, 1, newData.length, newData[0].length);
+  cell.setBorder(false,false,false,false,false,false);  
+openedDestinationSS.getSheetByName('PastResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+//      openedDestinationSS.getSheetByName('PastResidentAddressBook').insertRowsBefore(3,1);
+
+} 
+
+function removeDuplicateRowsFromNoticesResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getDataRange().getValues();
+    var breakRange = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getDataRange();
+for(;;) {
+  try {
+    breakRange.breakApart();
+    break;
+  } catch(e) {
+    breakRange = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getRange(
+      breakRange.getRowIndex(),
+      breakRange.getColumnIndex(),
+      Math.min(
+        breakRange.getHeight()+5,
+        mySheet.getMaxRows()-breakRange.getRowIndex()+1
+      ),
+      Math.min(
+        breakRange.getWidth()+5,
+        mySheet.getMaxColumns()-breakRange.getColumnIndex()+1
+      )
+    );
+  }
+}
+  var newData = new Array();
+  var rented = new Array();
+  var newNivUnit = new Array();
+  
+  var warning_count = 0;
+  var warning_count1 = 0;
+  var msg = "";  
+  var msg1 = "";
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+  
+  if(row[0] != '' && row[0] == newData[j][0] && row[1] == newData[j][1] && row[2] == newData[j][2] && row[3] == newData[j][3] && row[4] == newData[j][4] && row[5] == newData[j][5] && row[6] == newData[j][6] && row[7] == newData[j][7] && row[8] == newData[j][8] && row[9] == newData[j][9] && row[10] == newData[j][10] && row[11] == newData[j][11] && row[12] == newData[j][12]){
+   duplicate = true; 
+  }
+
+}
+
+  
+    
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+
+Logger.clear(); 
+Logger.log(newData[i]);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A4").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B4");   
+openedDestinationSS.getSheetByName('NoticesResidentAddressBook').clearContents();
+  openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setBackground(null);
+var cell = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getRange(1, 1, newData.length, newData[0].length);
+  cell.setBorder(false,false,false,false,false,false);  
+openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+//    openedDestinationSS.getSheetByName('NoticesResidentAddressBook').insertRowBefore(3);
+
+} 
+
+function mergeDuplicateResidentsFromResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+  var changedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ChangedResidentData");
+//  var copyOfChangedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of ChangedData");
+//  var targetCell = copyOfChangedDataSheet.getRange("D2")
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('ResidentAddressBook').getDataRange().getValues();
+  var newData = new Array();
+  var changedData = new Array();
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+
+if(row[0] == newData[j][0] && row[1] == newData[j][1]){
+  duplicate = true;
+changedData.push(row);
+
+}
+
+}
+
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+Logger.clear();   
+Logger.log(changedData);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A2").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B2");  
+openedDestinationSS.getSheetByName('ResidentAddressBook').clearContents();
+
+openedDestinationSS.getSheetByName('ResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+  
+  if(checkLog.getValue() == "undefined") {Logger.log("Empty");
+//var numRows = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumRows();
+//var numCols = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumColumns();
+//SpreadsheetApp.getActive().getSheetByName('ChangedData').getRange(2, 1,numRows,numCols).clear();
+                                         }else{ 
+changedDataSheet.insertRowsBefore(2,changedData.length); 
+SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).clearContent(); 
+SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).setValues(changedData);     
+//targetCell.setValue("=ARRAYFORMULA(ChangedData!A2:I)")
+
+  } 
+}
+
+function mergeDuplicateResidentsFromPastResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+//  var changedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ChangedResidentData");
+//  var copyOfChangedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of ChangedData");
+//  var targetCell = copyOfChangedDataSheet.getRange("D2")
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('PastResidentAddressBook').getDataRange().getValues();
+  var newData = new Array();
+  var changedData = new Array();
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+
+if(row[0] != '' && row[0] == newData[j][0] && row[1] == newData[j][1]){
+  duplicate = true;
+changedData.push(row);
+
+}
+
+}
+
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+Logger.clear();   
+Logger.log(changedData);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A2").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B2");  
+openedDestinationSS.getSheetByName('PastResidentAddressBook').clearContents();
+
+openedDestinationSS.getSheetByName('PastResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+//SpreadsheetApp.getActive().getSheetByName('PastResidentAddressBook').insertRowsBefore(3, 2);  
+//  if(checkLog.getValue() == "undefined") {Logger.log("Empty");
+////var numRows = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumRows();
+////var numCols = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumColumns();
+////SpreadsheetApp.getActive().getSheetByName('ChangedData').getRange(2, 1,numRows,numCols).clear();
+//                                         }else{ 
+//changedDataSheet.insertRowsBefore(2,changedData.length); 
+//SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).clearContent(); 
+//SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).setValues(changedData);     
+////targetCell.setValue("=ARRAYFORMULA(ChangedData!A2:I)")
+
+//
+//  } 
+}
+
+function mergeDuplicateResidentsFromNoticesResidentAddressBook() {
+  var destinationFile = DriveApp.getFilesByName('Entities_Import_File'); 
+//  var changedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ChangedResidentData");
+//  var copyOfChangedDataSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Copy of ChangedData");
+//  var targetCell = copyOfChangedDataSheet.getRange("D2")
+  var openedDestinationSS = SpreadsheetApp.openById(destinationFile.next().getId());
+  var data = openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getDataRange().getValues();
+  var newData = new Array();
+  var changedData = new Array();
+  
+  for(i in data){
+
+var row = data[i];
+
+var duplicate = false;
+
+for(j in newData){
+
+if(row[0] != '' && row[0] == newData[j][0] && row[1] == newData[j][1]){
+  duplicate = true;
+changedData.push(row);
+
+}
+
+}
+
+if(!duplicate){
+
+newData.push(row);
+
+}
+
+}
+Logger.clear();   
+Logger.log(changedData);
+var checkLogValue = Logger.getLog();
+openedDestinationSS.getSheetByName('Temp').getRange("A2").setValue(checkLogValue);
+var checkLog = openedDestinationSS.getSheetByName('Temp').getRange("B2");  
+openedDestinationSS.getSheetByName('NoticesResidentAddressBook').clearContents();
+
+openedDestinationSS.getSheetByName('NoticesResidentAddressBook').getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+  
+//  if(checkLog.getValue() == "undefined") {Logger.log("Empty");
+//var numRows = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumRows();
+//var numCols = SpreadsheetApp.getActive().getSheetByName('ChangedData').getDataRange().getNumColumns();
+//SpreadsheetApp.getActive().getSheetByName('ChangedData').getRange(2, 1,numRows,numCols).clear();
+//                                         }else{ 
+//changedDataSheet.insertRowsBefore(2,changedData.length); 
+//SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).clearContent(); 
+//SpreadsheetApp.getActive().getSheetByName('ChangedResidentData').getRange(2, 1, changedData.length, changedData[0].length).setValues(changedData);     
+////targetCell.setValue("=ARRAYFORMULA(ChangedData!A2:I)")
+//
+//  } 
+}
+
+function deleteExtraRows() {
+  var sheet = SpreadsheetApp.getActive().getSheetByName('ResidentAddressBook');
+  var sheetLastRowNum = sheet.getLastRow();
+  var start=sheetLastRowNum + 100;
+//  Logger.log(start);
+  var sheet2 = SpreadsheetApp.getActive().getSheetByName('Copy of ResidentAddressBook');
+  var sheet2LastRowNum = sheetLastRowNum;
+//  Logger.log(sheet2LastRowNum);
+  var start2=sheet2LastRowNum + 100;
+//  Logger.log(start2);
+//  Logger.log(start2);
+//  
+  var sheet3 = SpreadsheetApp.getActive().getSheetByName('PastResidentAddressBook');
+  var sheet3LastRowNum = sheet3.getLastRow();
+  var start3=sheet3LastRowNum + 100;
+  var sheet4 = SpreadsheetApp.getActive().getSheetByName('Copy of PastResidentAddressBook');
+  var sheet4LastRowNum = sheet3LastRowNum;
+  var start4=sheet4LastRowNum + 100;
+//  
+  var sheet5 = SpreadsheetApp.getActive().getSheetByName('NoticesResidentAddressBook');
+  var sheet5LastRowNum = sheet5.getLastRow();
+  var start5=sheet5LastRowNum + 100;
+  var sheet6 = SpreadsheetApp.getActive().getSheetByName('Copy of NoticesResidentAddressBook');
+  var sheet6LastRowNum = sheet5LastRowNum;
+  var start6=sheet6LastRowNum + 100;
+//  
+  var sheet7 = SpreadsheetApp.getActive().getSheetByName('MoveIns');
+  var sheet7LastRowNum = sheet7.getLastRow();
+  var start7=sheet7LastRowNum + 100;
+  var sheet8 = SpreadsheetApp.getActive().getSheetByName('Copy of MoveIns');
+  var sheet8LastRowNum = sheet7LastRowNum;
+  var start8=sheet8LastRowNum + 100;
+//  
+  var sheet9 = SpreadsheetApp.getActive().getSheetByName('MoveOuts');
+  var sheet9LastRowNum = sheet9.getLastRow();
+  var start9=sheet9LastRowNum + 100;
+  var sheet10 = SpreadsheetApp.getActive().getSheetByName('Copy of MoveOuts');
+  var sheet10LastRowNum = sheet9LastRowNum;
+  var start10=sheet10LastRowNum + 100;
+//  
+  var sheet11 = SpreadsheetApp.getActive().getSheetByName('Notices');
+  var sheet11LastRowNum = sheet11.getLastRow();
+  var start11=sheet11LastRowNum + 100;
+  var sheet12 = SpreadsheetApp.getActive().getSheetByName('Copy of Notices');
+  var sheet12LastRowNum = sheet11LastRowNum;
+  var start12=sheet12LastRowNum + 100;
+//  
+  var sheet13 = SpreadsheetApp.getActive().getSheetByName('ChangedResidentData');
+  var sheet13LastRowNum = sheet13.getLastRow();
+  Logger.log(sheet13LastRowNum);
+  var start13=sheet13LastRowNum + 100;
+  Logger.log(start13);
+//  
+  var end=sheet.getLastRow();
+  
+  var end2=sheet.getMaxRows() - 1;
+  var end3=end2-start;
+ 
+  
+  var end4=sheet2.getMaxRows() - 1;
+  var end5=end4-start2;
+//   Logger.log(end5);
+  var end6=sheet3.getMaxRows() - 1;
+  var end7=end6-start3;
+  
+  var end8=sheet4.getMaxRows() - 1;
+  var end9=end8-start4;
+//  
+  var end10=sheet5.getMaxRows() - 1;
+  var end11=end10-start5;
+  
+  var end12=sheet6.getMaxRows() - 1;
+  var end13=end12-start6;
+//  
+  var end14=sheet7.getMaxRows() - 1;
+  var end15=end14-start7;
+  
+  var end16=sheet8.getMaxRows() - 1;
+  var end17=end16-start8;
+  
+  var end18=sheet9.getMaxRows() - 1;
+  var end19=end18-start9;
+  
+  var end20=sheet10.getMaxRows() - 1;
+  var end21=end20-start10;
+  
+  var end22=sheet11.getMaxRows() - 1;
+  var end23=end22-start11;
+  
+  var end24=sheet12.getMaxRows() - 1;
+  var end25=end24-start12;
+  
+  var end26=sheet13.getMaxRows() - 1;
+  Logger.log(end26);
+  var end27=end26-start13;
+  Logger.log(end27);
+////  Logger.clear(); 
+////  Logger.log(end2);
+//  
+//  
+  if(end2 == start) {while (end2 < start + 2)break;}else{
+    sheet.deleteRows(start, end3);}
+  
+//  end=sheet2.getLastRow();
+//  end2=sheet2.getMaxRows() - 1;
+//  end3=end2-start;
+  
+  if(end4 <= start2) {while (end4 < start2 + 2)break;}else{
+    sheet2.deleteRows(start2, end5);}
+//  
+    if(end6 <= start3) {while (end6 < start3 + 2)break;}else{
+    sheet3.deleteRows(start3, end7);}
+  
+    if(end8 <= start4) {while (end8 < start4 + 2)break;}else{
+    sheet4.deleteRows(start4, end9);}
+//  
+    if(end10 <= start5) {while (end10 < start5 + 2)break;}else{
+    sheet5.deleteRows(start5, end11);}
+  
+    if(end12 <= start6) {while (end12 < start6 + 2)break;}else{
+    sheet6.deleteRows(start6, end13);}
+//  
+    if(end14 <= start7) {while (end14 < start7 + 2)break;}else{
+    sheet7.deleteRows(start7, end15);}
+  
+    if(end16 <= start8) {while (end16 < start8 + 2)break;}else{
+    sheet8.deleteRows(start8, end17);}
+  
+    if(end18 <= start9) {while (end18 < start9 + 2)break;}else{
+    sheet9.deleteRows(start9, end19);}
+  
+    if(end20 <= start10) {while (end20 < start10 + 2)break;}else{
+    sheet10.deleteRows(start10, end21);}
+  
+    if(end22 <= start11) {while (end22 < start11 + 2)break;}else{
+    sheet11.deleteRows(start11, end23);}
+  
+    if(end24 <= start12) {while (end24 < start12 + 2)break;}else{
+    sheet12.deleteRows(start12, end25);}
+  
+      if(end26 <= start13 ) {while (end26 < start13 + 2)break;}else{
+    sheet13.deleteRows(start13, end27);}
+}
+
+function pushMoveInsLast30Days() {
+var sheet = SpreadsheetApp.getActive().getSheetByName("Copy of ResidentAddressBook");
+var sheetRented = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var range = sheetRented.getRange(1, 1);
+var data = sheet.getDataRange().getValues();
+var today = sheet.getRange("N5").getValue();
+var rented = new Array();
+SpreadsheetApp.getActive().getSheetByName('PushedRows').clear();   
+  for(i in data){
+
+var row = data[i];
+//Logger.log(row[15]);    
+
+if(row[13] != "" && row[13] <= today && row[13] > today - 30 && row[1] != ""){
+//rented.push(row);
+Logger.clear();   
+Logger.log(row);
+rented.push(row);
+//Logger.log(rented);
+}
+}
+Logger.clear();   
+Logger.log(rented);
+var checkLogValue = Logger.getLog();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").clear();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").setValue(checkLogValue);
+var checkLog = SpreadsheetApp.getActive().getSheetByName("Temp").getRange("B2"); 
+if(checkLog.getValue() == "undefined") {Logger.log("Empty")}else{
+//  if(range.getValue() == '') {while(range == '')break;}else{
+    if(rented.length != 0) {
+//      sheetRented.insertRowsBefore(2, rented.length-1);}else{
+//      sheetRented.insertRowsBefore(2, rented.length)
+//      }
+
+  
+SpreadsheetApp.getActive().getSheetByName('PushedRows').getRange(1, 1, rented.length, rented[0].length).setValues(rented);  
+  }   
+}
+  Logger.log(today);
+} 
+
+function clearMasterSheet() {
+var destSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");  
+var numRowsDest = destSheet.getLastRow(); 
+var numColsDest = destSheet.getLastColumn();
+destSheet.getRange(2, 1,numRowsDest,numColsDest).clear();  
+}
+
+function mapPushedMoveInRows2Master() {
+var sourceSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var numRowsSource = sourceSheet.getLastRow();
+var destSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");
+var numRowsDest = destSheet.getLastRow(); 
+var numColsDest = destSheet.getLastColumn();
+  
+var sourceRange1 = sourceSheet.getRange(1, 2, numRowsSource, 1);
+var destRange1 = destSheet.getRange(2, 1, numRowsDest, 1);
+  destRange1.clearContent();
+//  destRange1 = destSheet.getRange(2, 1, numRowsSource, 22)
+  sourceRange1.copyTo(destRange1);
+
+var sourceRange2 = sourceSheet.getRange(1, 12, numRowsSource, 1);
+var destRange2 = destSheet.getRange(2, 2, numRowsDest, 1);
+  destRange2.clearContent();
+  sourceRange2.copyTo(destRange2); 
+//
+var sourceRange3 = sourceSheet.getRange(1, 3, numRowsSource, 1);
+var destRange3 = destSheet.getRange(2, 4, numRowsDest, 1);
+  destRange3.clearContent();
+  sourceRange3.copyTo(destRange3); 
+//
+var sourceRange4 = sourceSheet.getRange(1, 10, numRowsSource, 1);
+var destRange4 = destSheet.getRange(2, 10, numRowsDest, 1);
+  destRange4.clearContent();
+  sourceRange4.copyTo(destRange4); 
+//
+var sourceRange5 = sourceSheet.getRange(1, 11, numRowsSource, 1);
+var destRange5 = destSheet.getRange(2, 12, numRowsDest, 1);
+  destRange5.clearContent();
+  sourceRange5.copyTo(destRange5); 
+//
+var sourceRange6 = sourceSheet.getRange(1, 15, numRowsSource, 1);
+var destRange6 = destSheet.getRange(2, 35, numRowsDest, 1);
+  destRange6.clearContent();
+  sourceRange6.copyTo(destRange6); 
+//
+var sourceRange7 = sourceSheet.getRange(1, 1, numRowsSource, 1);
+var destRange7 = destSheet.getRange(2, 36, numRowsDest, 1);
+  destRange7.clearContent();
+  sourceRange7.copyTo(destRange7); 
+//
+var sourceRange8 = sourceSheet.getRange(1, 13, numRowsSource, 1);
+var destRange8 = destSheet.getRange(2, 37, numRowsDest, 1);
+  destRange8.clearContent();
+  sourceRange8.copyTo(destRange8); 
+//
+var sourceRange9 = sourceSheet.getRange(1, 14, numRowsSource, 1);
+var destRange9 = destSheet.getRange(2, 38, numRowsDest, 1);
+  destRange9.clearContent();
+  sourceRange9.copyTo(destRange9); 
+//
+   
+}
+
+function setMasterDateNumberFormatting() {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");
+var range = sheet.getRange('AL2:AM');  
+range.setNumberFormat("DD-MMM-YYYY");  
+}
+
+function setMoveInSheetNumberFormatting() {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("MoveIns");
+var range = sheet.getRange('A2:A');  
+range.setNumberFormat("00");  
+}
+
+function setMoveOutsSheetNumberFormatting() {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("MoveOuts");
+var range = sheet.getRange('A2:A');  
+range.setNumberFormat("00");  
+}
+
+function setNoticesSheetNumberFormatting() {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Notices");
+var range = sheet.getRange('A2:A');  
+range.setNumberFormat("00");  
+}
+
+function saveMasterAsRecentMoveInsCSVsendEmail() {
+  var sheet = SpreadsheetApp.getActive().getSheetByName("Master");
+  // create a folder from the name of the spreadsheet
+  var folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM');
+//    var sheet = sheets[i];
+    // append ".csv" extension to the sheet name
+    fileName = sheet.getName() + ".csv";
+    // convert all available sheet data to csv format
+    var csvFile = convertRangeToCsvFile_(fileName, sheet);
+    // create a file in the Docs List with the given name and the csv data
+    folder.createFile(fileName, csvFile);
+  var ssID = folder.getFilesByName(sheet.getName() + ".csv").next().getId();
+  Logger.log(ssID);
+  var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+  var numRows = contacts.getLastRow();
+  var email = contacts.getRange(2, 1, numRows, 1).getValues();
+  var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("B2").getValue();
+  var body = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("C2").getValue();
+
+  var contents = DriveApp.getFileById(ssID).getBlob().getBytes();
+  MailApp.sendEmail(email,subject ,body, {attachments:[{fileName:"RecentMoveIns" + ".csv", content:contents, mimeType:"application//xls"}]});
+  DriveApp.getFileById(ssID).setTrashed(true);  
+//  Browser.msgBox('Files are waiting in a folder named ' + folder.getName());
+}
+
+function pushMoveOutsLast30Days() {
+var sheet = SpreadsheetApp.getActive().getSheetByName("Copy of PastResidentAddressBook");
+var sheetRented = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var range = sheetRented.getRange(1, 1);
+var data = sheet.getDataRange().getValues();
+var today = sheet.getRange("N5").getValue();
+var rented = new Array();
+SpreadsheetApp.getActive().getSheetByName('PushedRows').clear();   
+  for(i in data){
+
+var row = data[i];
+//Logger.log(row[15]);    
+
+if(row[13] != "" && row[13] <= today && row[13] > today - 30 && row[1] != ""){
+//rented.push(row);
+Logger.clear();   
+Logger.log(row);
+rented.push(row);
+//Logger.log(rented);
+}
+}
+Logger.clear();   
+Logger.log(rented);
+var checkLogValue = Logger.getLog();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").clear();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").setValue(checkLogValue);
+var checkLog = SpreadsheetApp.getActive().getSheetByName("Temp").getRange("B2"); 
+if(checkLog.getValue() == "undefined") {Logger.log("Empty")}else{
+//  if(range.getValue() == '') {while(range == '')break;}else{
+    if(rented.length != 0) {
+//      sheetRented.insertRowsBefore(2, rented.length-1);}else{
+//      sheetRented.insertRowsBefore(2, rented.length)
+//      }
+
+  
+SpreadsheetApp.getActive().getSheetByName('PushedRows').getRange(1, 1, rented.length, rented[0].length).setValues(rented);  
+  }   
+}
+  Logger.log(today);
+}  
+
+function mapPushedMoveOutRows2Master() {
+var sourceSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var numRowsSource = sourceSheet.getLastRow();
+var destSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");
+var numRowsDest = destSheet.getLastRow(); 
+var numColsDest = destSheet.getLastColumn();
+destSheet.getRange(2, 1,numRowsDest,numColsDest).clear();  
+  
+var sourceRange1 = sourceSheet.getRange(1, 2, numRowsSource, 1);
+var destRange1 = destSheet.getRange(2, 1, numRowsDest, 1);
+  destRange1.clearContent();
+//  destRange1 = destSheet.getRange(2, 1, numRowsSource, 22)
+  sourceRange1.copyTo(destRange1);
+
+var sourceRange2 = sourceSheet.getRange(1, 12, numRowsSource, 1);
+var destRange2 = destSheet.getRange(2, 2, numRowsDest, 1);
+  destRange2.clearContent();
+  sourceRange2.copyTo(destRange2); 
+//
+var sourceRange3 = sourceSheet.getRange(1, 3, numRowsSource, 1);
+var destRange3 = destSheet.getRange(2, 4, numRowsDest, 1);
+  destRange3.clearContent();
+  sourceRange3.copyTo(destRange3); 
+//
+var sourceRange4 = sourceSheet.getRange(1, 10, numRowsSource, 1);
+var destRange4 = destSheet.getRange(2, 10, numRowsDest, 1);
+  destRange4.clearContent();
+  sourceRange4.copyTo(destRange4); 
+//
+var sourceRange5 = sourceSheet.getRange(1, 11, numRowsSource, 1);
+var destRange5 = destSheet.getRange(2, 12, numRowsDest, 1);
+  destRange5.clearContent();
+  sourceRange5.copyTo(destRange5); 
+//
+var sourceRange6 = sourceSheet.getRange(1, 15, numRowsSource, 1);
+var destRange6 = destSheet.getRange(2, 35, numRowsDest, 1);
+  destRange6.clearContent();
+  sourceRange6.copyTo(destRange6); 
+//
+var sourceRange7 = sourceSheet.getRange(1, 1, numRowsSource, 1);
+var destRange7 = destSheet.getRange(2, 36, numRowsDest, 1);
+  destRange7.clearContent();
+  sourceRange7.copyTo(destRange7); 
+//
+var sourceRange8 = sourceSheet.getRange(1, 13, numRowsSource, 1);
+var destRange8 = destSheet.getRange(2, 37, numRowsDest, 1);
+  destRange8.clearContent();
+  sourceRange8.copyTo(destRange8); 
+//
+var sourceRange9 = sourceSheet.getRange(1, 14, numRowsSource, 1);
+var destRange9 = destSheet.getRange(2, 39, numRowsDest, 1);
+  destRange9.clearContent();
+  sourceRange9.copyTo(destRange9); 
+//
+   
+}
+
+function saveMasterAsRecentMoveOutsCSVsendEmail() {
+  var sheet = SpreadsheetApp.getActive().getSheetByName("Master");
+  // create a folder from the name of the spreadsheet
+  var folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM');
+//    var sheet = sheets[i];
+    // append ".csv" extension to the sheet name
+    fileName = sheet.getName() + ".csv";
+    // convert all available sheet data to csv format
+    var csvFile = convertRangeToCsvFile_(fileName, sheet);
+    // create a file in the Docs List with the given name and the csv data
+    folder.createFile(fileName, csvFile);
+  var ssID = folder.getFilesByName(sheet.getName() + ".csv").next().getId();
+  Logger.log(ssID);
+  var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+  var numRows = contacts.getLastRow();
+  var email = contacts.getRange(2, 1, numRows, 1).getValues();
+  var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("D2").getValue();
+  var body = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("E2").getValue();
+
+  var contents = DriveApp.getFileById(ssID).getBlob().getBytes();
+  MailApp.sendEmail(email,subject ,body, {attachments:[{fileName:"RecentMoveOuts" + ".csv", content:contents, mimeType:"application//xls"}]});
+  DriveApp.getFileById(ssID).setTrashed(true);  
+//  Browser.msgBox('Files are waiting in a folder named ' + folder.getName());
+}
+
+function pushNoticesNext30Days() {
+var sheet = SpreadsheetApp.getActive().getSheetByName("Copy of NoticesResidentAddressBook");
+var sheetRented = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var range = sheetRented.getRange(1, 1);
+var data = sheet.getDataRange().getValues();
+var today = sheet.getRange("O5").getValue();
+var rented = new Array();
+SpreadsheetApp.getActive().getSheetByName('PushedRows').clear();   
+  for(i in data){
+
+var row = data[i];
+//Logger.log(row[15]);    
+
+if(row[14] != "" && row[14] >= today && row[14] < today + 30 && row[1] != ""){
+//rented.push(row);
+Logger.clear();   
+Logger.log(row);
+rented.push(row);
+//Logger.log(rented);
+}
+}
+Logger.clear();   
+Logger.log(rented);
+var checkLogValue = Logger.getLog();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").clear();
+SpreadsheetApp.getActive().getSheetByName("Temp").getRange("A2").setValue(checkLogValue);
+var checkLog = SpreadsheetApp.getActive().getSheetByName("Temp").getRange("B2"); 
+if(checkLog.getValue() == "undefined") {Logger.log("Empty")}else{
+//  if(range.getValue() == '') {while(range == '')break;}else{
+    if(rented.length != 0) {
+//      sheetRented.insertRowsBefore(2, rented.length-1);}else{
+//      sheetRented.insertRowsBefore(2, rented.length)
+//      }
+
+  
+SpreadsheetApp.getActive().getSheetByName('PushedRows').getRange(1, 1, rented.length, rented[0].length).setValues(rented);  
+  }   
+}
+  Logger.log(today);
+}  
+
+function mapPushedNoticesRows2Master() {
+var sourceSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("PushedRows");
+var numRowsSource = sourceSheet.getLastRow();
+var destSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Master");
+var numRowsDest = destSheet.getLastRow(); 
+var numColsDest = destSheet.getLastColumn();
+destSheet.getRange(2, 1,numRowsDest,numColsDest).clear();  
+  
+var sourceRange1 = sourceSheet.getRange(1, 2, numRowsSource, 1);
+var destRange1 = destSheet.getRange(2, 1, numRowsDest, 1);
+  destRange1.clearContent();
+//  destRange1 = destSheet.getRange(2, 1, numRowsSource, 22)
+  sourceRange1.copyTo(destRange1);
+
+var sourceRange2 = sourceSheet.getRange(1, 12, numRowsSource, 1);
+var destRange2 = destSheet.getRange(2, 2, numRowsDest, 1);
+  destRange2.clearContent();
+  sourceRange2.copyTo(destRange2); 
+//
+var sourceRange3 = sourceSheet.getRange(1, 3, numRowsSource, 1);
+var destRange3 = destSheet.getRange(2, 4, numRowsDest, 1);
+  destRange3.clearContent();
+  sourceRange3.copyTo(destRange3); 
+//
+var sourceRange4 = sourceSheet.getRange(1, 10, numRowsSource, 1);
+var destRange4 = destSheet.getRange(2, 10, numRowsDest, 1);
+  destRange4.clearContent();
+  sourceRange4.copyTo(destRange4); 
+//
+var sourceRange5 = sourceSheet.getRange(1, 11, numRowsSource, 1);
+var destRange5 = destSheet.getRange(2, 12, numRowsDest, 1);
+  destRange5.clearContent();
+  sourceRange5.copyTo(destRange5); 
+//
+var sourceRange6 = sourceSheet.getRange(1, 16, numRowsSource, 1);
+var destRange6 = destSheet.getRange(2, 35, numRowsDest, 1);
+  destRange6.clearContent();
+  sourceRange6.copyTo(destRange6); 
+//
+var sourceRange7 = sourceSheet.getRange(1, 1, numRowsSource, 1);
+var destRange7 = destSheet.getRange(2, 36, numRowsDest, 1);
+  destRange7.clearContent();
+  sourceRange7.copyTo(destRange7); 
+//
+var sourceRange8 = sourceSheet.getRange(1, 13, numRowsSource, 1);
+var destRange8 = destSheet.getRange(2, 37, numRowsDest, 1);
+  destRange8.clearContent();
+  sourceRange8.copyTo(destRange8); 
+//
+var sourceRange9 = sourceSheet.getRange(1, 14, numRowsSource, 1);
+var destRange9 = destSheet.getRange(2, 40, numRowsDest, 1);
+  destRange9.clearContent();
+  sourceRange9.copyTo(destRange9); 
+//
+var sourceRange10 = sourceSheet.getRange(1, 15, numRowsSource, 1);
+var destRange10 = destSheet.getRange(2, 39, numRowsDest, 1);
+  destRange10.clearContent();
+  sourceRange10.copyTo(destRange10);   
+   
+}
+
+function saveMasterAsRecentNoticesCSVsendEmail() {
+  var sheet = SpreadsheetApp.getActive().getSheetByName("Master");
+  // create a folder from the name of the spreadsheet
+  var folder = DriveApp.getFolderById('0B4jTPPJvvrqFZVZaenFaLU1RdmM');
+//    var sheet = sheets[i];
+    // append ".csv" extension to the sheet name
+    fileName = sheet.getName() + ".csv";
+    // convert all available sheet data to csv format
+    var csvFile = convertRangeToCsvFile_(fileName, sheet);
+    // create a file in the Docs List with the given name and the csv data
+    folder.createFile(fileName, csvFile);
+  var ssID = folder.getFilesByName(sheet.getName() + ".csv").next().getId();
+  Logger.log(ssID);
+  var contacts = SpreadsheetApp.getActive().getSheetByName("AutoEmails");
+  var numRows = contacts.getLastRow();
+  var email = contacts.getRange(2, 1, numRows, 1).getValues();
+  var subject = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("F2").getValue();
+  var body = SpreadsheetApp.getActive().getSheetByName("AutoEmails").getRange("G2").getValue();
+
+  var contents = DriveApp.getFileById(ssID).getBlob().getBytes();
+  MailApp.sendEmail(email,subject ,body, {attachments:[{fileName:"RecentNotices" + ".csv", content:contents, mimeType:"application//xls"}]});
+  DriveApp.getFileById(ssID).setTrashed(true);  
+//  Browser.msgBox('Files are waiting in a folder named ' + folder.getName());
+}
+
+
+function convertRangeToCsvFile_(csvFileName, sheet) {
+  // get available data range in the spreadsheet
+  var activeRange = sheet.getDataRange();
+  try {
+    var data = activeRange.getValues();
+    var csvFile = undefined;
+
+    // loop through the data in the range and build a string with the csv data
+    if (data.length > 1) {
+      var csv = "";
+      for (var row = 0; row < data.length; row++) {
+        for (var col = 0; col < data[row].length; col++) {
+      data[row][col] = isDate(data[row][col]);      // Format, if date
+      if (data[row][col].toString().indexOf(",") != -1) {
+        data[row][col] = "\"" + data[row][col] + "\"";
+          }
+        }
+
+        // join each row's columns
+        // add a carriage return to end of each row, except for the last one
+        if (row < data.length-1) {
+          csv += data[row].join(",") + "\r\n";
+        }
+        else {
+          csv += data[row];
+        }
+      }
+      csvFile = csv;
+    }
+    return csvFile;
+  }
+  catch(err) {
+    Logger.log(err);
+    Browser.msgBox(err);
+  }
+}
+
+var TZ = "GMT";
+// From https://stackoverflow.com/questions/1353684
+// Returns 'true' if variable d is a date object.
+function isValidDate(d) {
+  if ( Object.prototype.toString.call(d) !== "[object Date]" )
+    return false;
+  return !isNaN(d.getTime());
+}
+
+// Test if value is a date and if so format
+// otherwise, reflect input variable back as-is. 
+function isDate(sDate) {
+  if (isValidDate(sDate)) {
+    sDate = Utilities.formatDate(new Date(sDate), TZ, "dd MMM yyyy");
+  }
+  return sDate;
+}
+
+// Test if value is a date and if so format
+// otherwise, reflect input variable back as-is. 
+function expiry99isDate(sDate) {
+  if (isValidDate(sDate)) {
+    sDate = Utilities.formatDate(new Date(sDate), TZ, "dd MMM 99yy");
+  }
+  return sDate;
+}
